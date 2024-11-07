@@ -23,6 +23,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation libs.guava
+    implementation 'mysql:mysql-connector-java:8.0.30'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -40,4 +41,17 @@ application {
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+apply plugin: 'java'
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'ordering_system.App', // Replace with your main class
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
