@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class SizeDao {
     public Integer sizeToId(Connection connection, String size) {
-        String sql = "SELECT id FROM size WHERE name = ?";
+        String sql = "SELECT id FROM sizes WHERE name = ?";
         // 'try-with-resources' -> automatically does clean up
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, size);

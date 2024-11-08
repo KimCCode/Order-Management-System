@@ -4,11 +4,36 @@
 package ordering_system;
 
 
+import javax.swing.SwingUtilities;
+
+import ordering_system.Controller.OrderController;
+import ordering_system.Dao.CustomerDao;
+import ordering_system.Dao.OrderDao;
+import ordering_system.Dao.ProductDao;
+import ordering_system.Dao.SizeDao;
+import ordering_system.Services.OrderService;
 import ordering_system.View.MainFrame;
+import ordering_system.View.CardArea.Order.CustomerInfoPanel;
+import ordering_system.View.CardArea.Order.OrderInfoPanel;
+import ordering_system.View.CardArea.Order.OrderPanel;
+import ordering_system.View.CardArea.Order.OrderPanelBottom;
 
 public class App {
 
     public static void main(String[] args) {
-        new MainFrame();
+        SwingUtilities.invokeLater(() -> {
+            MainFrame form = new MainFrame();
+            form.setVisible(true);
+            OrderPanel orderPanel = form.getOrderPanel();
+            OrderPanelBottom orderPanelBottom = orderPanel.getOrderPanelBottom();
+            OrderInfoPanel orderInfoPanel = orderPanel.getOrderInfoPanel();
+            CustomerInfoPanel customerInfoPanel = orderPanel.getCustomerInfoPanel();
+            OrderDao orderDao = new OrderDao();
+            CustomerDao customerDao = new CustomerDao();
+            ProductDao productDao = new ProductDao();
+            SizeDao sizeDao = new SizeDao();
+            OrderService orderService = new OrderService(orderDao, customerDao, productDao, sizeDao);
+            OrderController orderController = new OrderController(orderPanelBottom, orderInfoPanel, customerInfoPanel, orderService);
+        });
     }
 }

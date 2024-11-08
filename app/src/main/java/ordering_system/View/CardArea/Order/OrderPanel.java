@@ -5,6 +5,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 public class OrderPanel extends JPanel {
+    OrderPanelBottom orderPanelBottom;
+    OrderPanelMainArea orderPanelMainArea;
 
     public OrderPanel() {
         initialisePanel();
@@ -13,8 +15,18 @@ public class OrderPanel extends JPanel {
     private void initialisePanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(Box.createVerticalStrut(50));
-        add(new OrderPanelMainArea());
-        add(new OrderPanelBottom());
+        orderPanelMainArea = new OrderPanelMainArea();
+        add(orderPanelMainArea);
+        orderPanelBottom = new OrderPanelBottom();
+        add(orderPanelBottom);
     }
-
+    public OrderPanelBottom getOrderPanelBottom() {
+        return orderPanelBottom;
+    }
+    public OrderInfoPanel getOrderInfoPanel() {
+        return orderPanelMainArea.getOrderInfoPanel();
+    }
+    public CustomerInfoPanel getCustomerInfoPanel() {
+        return orderPanelMainArea.getCustomerInfoPanel();
+    }
 }

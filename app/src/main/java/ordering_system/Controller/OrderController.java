@@ -28,7 +28,7 @@ public class OrderController {
 
     public void handlePlaceOrder(String customerName, String phone, String date, String size, String flavour, int qty) {
         orderService.placeOrder(customerName, phone, date, size, flavour, qty);
-        orderPanelBottom.showSuccessMessage();
+        // orderPanelBottom.showSuccessMessage();
     }
 
     public void sumUp() {

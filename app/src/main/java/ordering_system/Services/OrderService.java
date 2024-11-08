@@ -1,7 +1,6 @@
 package ordering_system.Services;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ordering_system.Dao.CustomerDao;
@@ -24,17 +23,24 @@ public class OrderService {
     }
     public void placeOrder(String customerName, String phone, String deliveryDate, String size, String flavour, int qty) {
         try (Connection connection = DataBaseConnection.getConnection()) {
-            Integer customerId = customerDao.customerNameToId(connection, customerName);
-            if (customerId == null) {
-                // Create new customer
-                customerId = customerDao.insertCustomer(connection, customerName, phone);
-                if (customerId == -1) {
-                    throw new SQLException("Failed to insert customer: No ID generated.");
+            try {
+                connection.setAutoCommit(false);
+                Integer customerId = customerDao.customerNameToId(connection, customerName);
+                if (customerId == null) {
+                    // Create new customer
+                    customerId = customerDao.insertCustomer(connection, customerName, phone);
+                    if (customerId == -1) {
+                        throw new SQLException("Failed to insert customer: No ID generated.");
+                    }
                 }
+                Integer sizeId = sizeDao.sizeToId(connection, size);
+                Integer productId = productDao.flavourToId(connection, flavour);
+                orderDao.insertOrder(connection, customerId, productId, sizeId, qty, deliveryDate);
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                e.printStackTrace();
             }
-            Integer sizeId = sizeDao.sizeToId(connection, size);
-            Integer productId = productDao.flavourToId(connection, flavour);
-            orderDao.insertOrder(connection, customerId, productId, sizeId, qty, deliveryDate);
         } catch (SQLException e) {
             e.printStackTrace();
         }

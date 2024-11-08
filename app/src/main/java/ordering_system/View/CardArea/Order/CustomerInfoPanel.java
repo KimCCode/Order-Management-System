@@ -44,10 +44,10 @@ public class CustomerInfoPanel extends JPanel {
     }
 
     public String getPhoneField() {
-        return nameField.getText();
+        return phoneField.getText();
     }
 
     public String getDateField() {
-        return nameField.getText();
+        return dateField.getText();
     }
 }
