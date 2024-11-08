@@ -1,22 +1,34 @@
 package ordering_system.Controller;
 
-import javax.swing.JFrame;
-
-import ordering_system.Manager.OrderManager;
+import ordering_system.Services.OrderService;
+import ordering_system.View.CardArea.Order.CustomerInfoPanel;
+import ordering_system.View.CardArea.Order.OrderInfoPanel;
+import ordering_system.View.CardArea.Order.OrderPanelBottom;
 
 public class OrderController {
-    private OrderManager orderManager;
-    // private OrderFrame orderPanel;
+    private OrderPanelBottom orderPanelBottom;
+    private OrderInfoPanel orderInfoPanel;
+    private CustomerInfoPanel customerInfoPanel;
+    private OrderService orderService;
 
-    // public OrderController (OrderManager orderManager, OrderFrame orderPanel) {
-    //     this.orderManager = orderManager;
-    //     this.orderPanel = orderPanel;
-    //     // orderPanel.addCreateOrderListener(e -> createOrder());
-    // }
+    public OrderController (OrderPanelBottom orderPanelBottom, OrderInfoPanel orderInfoPanel, CustomerInfoPanel customerInfoPanel, OrderService orderService) {
+        this.orderPanelBottom = orderPanelBottom;
+        this.orderInfoPanel = orderInfoPanel;
+        this.customerInfoPanel = customerInfoPanel;
+        this.orderService = orderService;
+        orderPanelBottom.setPlaceOrderAction(e -> handlePlaceOrder(
+            customerInfoPanel.getNameField(),
+            customerInfoPanel.getPhoneField(),
+            customerInfoPanel.getDateField(),
+            orderInfoPanel.getMooncakeSize(),
+            orderInfoPanel.getFlavour(),
+            orderInfoPanel.getQty()
+        ));
+    }
 
-    public void createOrder() {
-        // orderManager.createOrder(orderPanel.getDeliveryDate(), orderPanel.getCustomerName(), orderPanel.getFlavour(),
-        //     orderPanel.getSize(), orderPanel.getQuantity(), orderPanel.getNotes());
+    public void handlePlaceOrder(String customerName, String phone, String date, String size, String flavour, int qty) {
+        orderService.placeOrder(customerName, phone, date, size, flavour, qty);
+        orderPanelBottom.showSuccessMessage();
     }
 
     public void sumUp() {

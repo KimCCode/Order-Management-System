@@ -10,7 +10,10 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 public class CustomerInfoPanel extends JPanel {
-    private String[] infos = {"Name", "Phone", "Date"};
+    private JTextField nameField;
+    private JTextField phoneField;
+    private JTextField dateField;
+
     public CustomerInfoPanel() {
         initialisePanel();
     }
@@ -20,11 +23,31 @@ public class CustomerInfoPanel extends JPanel {
         setBorder(new LineBorder(Color.GRAY, 1));
         setPreferredSize(new Dimension(200, 120));
         add(Box.createVerticalGlue());
-        for (String info : infos) {
-            JTextField field = new JTextField(10);
-            field.setBorder(new LineBorder(Color.BLACK, 1));
-            add(new InfoPanel(info, field));
-        }
+        
+        nameField = new JTextField(10);
+        nameField.setBorder(new LineBorder(Color.BLACK, 1));
+        add(new InfoPanel("Name", nameField));
+
+        phoneField = new JTextField(10);
+        phoneField.setBorder(new LineBorder(Color.BLACK, 1));
+        add(new InfoPanel("Phone", phoneField));
+
+        dateField = new JTextField(10);
+        dateField.setBorder(new LineBorder(Color.BLACK, 1));
+        add(new InfoPanel("Date", dateField));
+        
         add(Box.createVerticalGlue());
+    }
+
+    public String getNameField() {
+        return nameField.getText();
+    }
+
+    public String getPhoneField() {
+        return nameField.getText();
+    }
+
+    public String getDateField() {
+        return nameField.getText();
     }
 }

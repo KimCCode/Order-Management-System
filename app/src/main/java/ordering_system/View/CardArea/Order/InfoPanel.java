@@ -5,8 +5,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class InfoPanel extends JPanel {
+    private JTextField field;
     public InfoPanel(String string, Component component) {
         setOpaque(true);
         setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -15,5 +17,7 @@ public class InfoPanel extends JPanel {
         add(label);
         add(component);
     }
-
+    public String getField() {
+        return field.getText();
+    }
 }

@@ -1,6 +1,5 @@
 package ordering_system.View.CardArea.Order;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
