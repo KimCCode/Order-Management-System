@@ -78,19 +78,34 @@ public class OrderDao {
         return orders;
     }
 
-    public int getProfit() {
-        String sql = "SELECT SUM(price) as total FROM ORDERS O JOIN SIZES S ON S.id = O.sizeId";
-        try (Connection connection = DataBaseConnection.getConnection();
-             Statement stmt = connection.createStatement()) {
+    public int[] getProfitAndOrders(Connection connection) {
+        String sql = "SELECT SUM(price) as total, SUM(quantity) as total_orders FROM ORDERS O JOIN SIZES S ON S.id = O.sizeId";
+        try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                return rs.getInt("total");
+                return new int[] {rs.getInt("total"), rs.getInt("total_orders")};
             } else {
-                return 0;
+                return new int[] {0, 0};
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return new int[] {0, 0};
+    }
+
+    public int[] getProfitAndOrders() {
+        String sql = "SELECT SUM(price) as total, SUM(quantity) as total_orders FROM ORDERS O JOIN SIZES S ON S.id = O.sizeId";
+        try (Connection connection = DataBaseConnection.getConnection();
+             Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                return new int[] {rs.getInt("total"), rs.getInt("total_orders")};
+            } else {
+                return new int[] {0, 0};
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new int[] {0, 0};
     }
 }

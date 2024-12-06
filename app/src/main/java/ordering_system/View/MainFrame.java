@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import ordering_system.View.CardArea.CardArea;
 import ordering_system.View.CardArea.Dashboard.DashboardPanel;
+import ordering_system.View.CardArea.Dashboard.MetricCardsPanel;
 import ordering_system.View.CardArea.Order.OrderPanel;
 import ordering_system.View.CardArea.ViewOrder.ViewOrderPanel;
 import ordering_system.View.Sidebar.SideBar;
@@ -29,8 +30,8 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public DashboardPanel getDashboardPanel() {
-        return cardArea.getDashboardPanel();
+    public MetricCardsPanel getMetricCardsPanel() {
+        return cardArea.getMetricCardsPanel();
     }
     public OrderPanel getOrderPanel() {
         return cardArea.getOrderPanel();

@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 public class MetricCard extends RoundedPanel {
     private String imageLocation;
     private String text;
-    private JLabel valueLabel;
+    protected JLabel valueLabel;
 
     public MetricCard(String imageLocation, String text) {
         super(new Dimension(150, 150), new Color(0x133a94));
@@ -45,6 +45,6 @@ public class MetricCard extends RoundedPanel {
     }
 
     public void setValue(int value) {
-        valueLabel.setText("$" + Integer.toString(value));
+        valueLabel.setText(Integer.toString(value));
     }
 }

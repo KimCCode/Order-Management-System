@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 import ordering_system.View.CardArea.Dashboard.DashboardPanel;
+import ordering_system.View.CardArea.Dashboard.MetricCardsPanel;
 import ordering_system.View.CardArea.Order.OrderPanel;
 import ordering_system.View.CardArea.Recipe.RecipePanel;
 import ordering_system.View.CardArea.ViewOrder.ViewOrderPanel;
@@ -40,8 +41,8 @@ public class CardArea extends JPanel {
         cl.show(this, cardName);
     }
 
-    public DashboardPanel getDashboardPanel() {
-        return dashboardPanel;
+    public MetricCardsPanel getMetricCardsPanel() {
+        return dashboardPanel.getMetricCardsPanel();
     }
 
     public OrderPanel getOrderPanel() {

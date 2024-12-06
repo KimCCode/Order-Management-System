@@ -19,7 +19,7 @@ public class DashboardPanel extends JPanel {
         add(new ChartsPanel(), BorderLayout.CENTER);
     }
 
-    public void setProfit(int value) {
-        metricCardsPanel.setProfit(value);
+    public MetricCardsPanel getMetricCardsPanel() {
+        return metricCardsPanel;
     }
 }
