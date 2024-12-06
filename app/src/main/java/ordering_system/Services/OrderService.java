@@ -11,10 +11,10 @@ import ordering_system.Database.DataBaseConnection;
 import ordering_system.Exceptions.OrderProcessingException;
 
 public class OrderService {
-    private final OrderDao orderDao;
-    private final CustomerDao customerDao;
-    private final ProductDao productDao;
-    private final SizeDao sizeDao;
+    private OrderDao orderDao;
+    private CustomerDao customerDao;
+    private ProductDao productDao;
+    private SizeDao sizeDao;
 
     public OrderService(OrderDao orderDao, CustomerDao customerDao, ProductDao productDao, SizeDao sizeDao) {
         this.orderDao = orderDao;

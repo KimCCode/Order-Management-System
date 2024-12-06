@@ -77,4 +77,20 @@ public class OrderDao {
 
         return orders;
     }
+
+    public int getProfit() {
+        String sql = "SELECT SUM(price) as total FROM ORDERS O JOIN SIZES S ON S.id = O.sizeId";
+        try (Connection connection = DataBaseConnection.getConnection();
+             Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("total");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

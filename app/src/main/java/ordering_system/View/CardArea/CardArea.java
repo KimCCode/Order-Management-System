@@ -11,6 +11,7 @@ import ordering_system.View.CardArea.ViewOrder.ViewOrderPanel;
 
 public class CardArea extends JPanel {
     private CardLayout cl;
+    private DashboardPanel dashboardPanel;
     private OrderPanel orderPanel;
     private ViewOrderPanel viewOrderPanel;
 
@@ -26,7 +27,8 @@ public class CardArea extends JPanel {
     }
 
     public void initialiseCards() {
-        add(new DashboardPanel(), "DashboardPanel");
+        dashboardPanel = new DashboardPanel();
+        add(dashboardPanel, "DashboardPanel");
         orderPanel = new OrderPanel();
         add(orderPanel, "OrderPanel");
         viewOrderPanel = new ViewOrderPanel();
@@ -36,6 +38,10 @@ public class CardArea extends JPanel {
 
     public void switchToCard(String cardName) {
         cl.show(this, cardName);
+    }
+
+    public DashboardPanel getDashboardPanel() {
+        return dashboardPanel;
     }
 
     public OrderPanel getOrderPanel() {

@@ -6,6 +6,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 public class DashboardPanel extends JPanel {
+    private MetricCardsPanel metricCardsPanel;
     public DashboardPanel() {
         initialisePanel();
     }
@@ -13,7 +14,12 @@ public class DashboardPanel extends JPanel {
     private void initialisePanel() {
         setBackground(new Color(0xfefae0));
         setLayout(new BorderLayout());
-        add(new MetricCardsPanel(), BorderLayout.NORTH);
+        metricCardsPanel = new MetricCardsPanel();
+        add(metricCardsPanel, BorderLayout.NORTH);
         add(new ChartsPanel(), BorderLayout.CENTER);
+    }
+
+    public void setProfit(int value) {
+        metricCardsPanel.setProfit(value);
     }
 }

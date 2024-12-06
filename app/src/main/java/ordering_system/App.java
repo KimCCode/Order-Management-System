@@ -4,15 +4,21 @@
 package ordering_system;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 import ordering_system.Controller.OrderController;
+import ordering_system.Controller.DashboardController;
 import ordering_system.Dao.CustomerDao;
 import ordering_system.Dao.OrderDao;
 import ordering_system.Dao.ProductDao;
 import ordering_system.Dao.SizeDao;
 import ordering_system.Services.OrderService;
 import ordering_system.View.MainFrame;
+import ordering_system.View.CardArea.Dashboard.DashboardPanel;
 import ordering_system.View.CardArea.Order.CustomerInfoPanel;
 import ordering_system.View.CardArea.Order.OrderInfoPanel;
 import ordering_system.View.CardArea.Order.OrderPanel;
@@ -26,6 +32,7 @@ public class App {
         SwingUtilities.invokeLater(() -> {
             MainFrame form = new MainFrame();
             form.setVisible(true);
+            DashboardPanel dashboardPanel = form.getDashboardPanel();
             ViewOrderPanel viewOrderPanel = form.getViewOrderPanel();
             OrderPanel orderPanel = form.getOrderPanel();
             OrderPanelBottom orderPanelBottom = orderPanel.getOrderPanelBottom();
@@ -38,6 +45,18 @@ public class App {
             SizeDao sizeDao = new SizeDao();
             OrderService orderService = new OrderService(orderDao, customerDao, productDao, sizeDao);
             OrderController orderController = new OrderController(orderPanelBottom, orderInfoPanel, customerInfoPanel, orderTable, orderService, orderDao, productDao, viewOrderPanel);
+            DashboardController dashboardController = new DashboardController(dashboardPanel, orderDao);
+            Timer timer = new Timer(10000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SwingUtilities.invokeLater(() -> {
+                        int profit = orderDao.getProfit();
+                        System.out.println(profit);
+                        dashboardPanel.setProfit(profit);
+                    });
+                }
+            });
+            timer.start();
         });
     }
 }
