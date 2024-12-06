@@ -1,12 +1,14 @@
 package ordering_system.View.CardArea.Order;
 
+import java.awt.Color;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 public class OrderPanel extends JPanel {
-    OrderPanelBottom orderPanelBottom;
-    OrderPanelMainArea orderPanelMainArea;
+    private OrderPanelBottom orderPanelBottom;
+    private OrderPanelMainArea orderPanelMainArea;
 
     public OrderPanel() {
         initialisePanel();
@@ -14,6 +16,7 @@ public class OrderPanel extends JPanel {
 
     private void initialisePanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBackground(new Color(0xf5f5f5));
         add(Box.createVerticalStrut(50));
         orderPanelMainArea = new OrderPanelMainArea();
         add(orderPanelMainArea);
@@ -28,5 +31,8 @@ public class OrderPanel extends JPanel {
     }
     public CustomerInfoPanel getCustomerInfoPanel() {
         return orderPanelMainArea.getCustomerInfoPanel();
+    }
+    public OrderTable getOrderTable() {
+        return orderPanelMainArea.getOrderTable();
     }
 }

@@ -42,4 +42,8 @@ public class OrderPanelBottom extends JPanel {
     public void showSuccessMessage() {
         JOptionPane.showMessageDialog(this, "Order placed successfully!");
     }
+
+    public void showErrorMessage() {
+        JOptionPane.showMessageDialog(this, "Unable to place order!");
+    }
 }

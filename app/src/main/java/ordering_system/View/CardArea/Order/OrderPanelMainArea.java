@@ -5,8 +5,9 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 
 public class OrderPanelMainArea extends JPanel {
-    OrderInfoPanel orderInfoPanel;
-    CustomerInfoPanel customerInfoPanel;
+    private OrderInfoPanel orderInfoPanel;
+    private CustomerInfoPanel customerInfoPanel;
+    private OrderTable orderTable;
     public OrderPanelMainArea() {
         initialisePanel();
     }
@@ -19,7 +20,8 @@ public class OrderPanelMainArea extends JPanel {
         add(customerInfoPanel);
         orderInfoPanel = new OrderInfoPanel();
         add(orderInfoPanel);
-        add(new OrderTable());
+        orderTable = new OrderTable(350, 120);
+        add(orderTable);
         add(new SummaryPanel());
     }
 
@@ -29,5 +31,9 @@ public class OrderPanelMainArea extends JPanel {
 
     public CustomerInfoPanel getCustomerInfoPanel() {
         return customerInfoPanel;
+    }
+
+    public OrderTable getOrderTable() {
+        return orderTable;
     }
 }

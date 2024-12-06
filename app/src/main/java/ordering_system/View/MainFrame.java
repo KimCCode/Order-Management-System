@@ -6,11 +6,12 @@ import javax.swing.JFrame;
 
 import ordering_system.View.CardArea.CardArea;
 import ordering_system.View.CardArea.Order.OrderPanel;
+import ordering_system.View.CardArea.ViewOrder.ViewOrderPanel;
 import ordering_system.View.Sidebar.SideBar;
 
 public class MainFrame extends JFrame {
-    CardLayout cl;
-    CardArea cardArea;
+    private CardLayout cl;
+    private CardArea cardArea;
  
     public MainFrame() {
         initialiseMainFrame();
@@ -29,5 +30,9 @@ public class MainFrame extends JFrame {
 
     public OrderPanel getOrderPanel() {
         return cardArea.getOrderPanel();
+    }
+
+    public ViewOrderPanel getViewOrderPanel() {
+        return cardArea.getViewOrderPanel();
     }
 }

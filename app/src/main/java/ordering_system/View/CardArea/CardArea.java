@@ -10,8 +10,9 @@ import ordering_system.View.CardArea.Recipe.RecipePanel;
 import ordering_system.View.CardArea.ViewOrder.ViewOrderPanel;
 
 public class CardArea extends JPanel {
-    CardLayout cl;
-    OrderPanel orderPanel;
+    private CardLayout cl;
+    private OrderPanel orderPanel;
+    private ViewOrderPanel viewOrderPanel;
 
     public CardArea() {
         cl = new CardLayout();
@@ -28,7 +29,8 @@ public class CardArea extends JPanel {
         add(new DashboardPanel(), "DashboardPanel");
         orderPanel = new OrderPanel();
         add(orderPanel, "OrderPanel");
-        add(new ViewOrderPanel(), "ViewOrderPanel");
+        viewOrderPanel = new ViewOrderPanel();
+        add(viewOrderPanel, "ViewOrderPanel");
         add(new RecipePanel(), "RecipePanel");
     }
 
@@ -38,5 +40,9 @@ public class CardArea extends JPanel {
 
     public OrderPanel getOrderPanel() {
         return orderPanel;
+    }
+
+    public ViewOrderPanel getViewOrderPanel() {
+        return viewOrderPanel;
     }
 }

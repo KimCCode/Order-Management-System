@@ -5,8 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
 
 import ordering_system.Database.DataBaseConnection;
+import ordering_system.Model.Order;
 
 public class OrderDao {
     // Insert Example
@@ -25,27 +30,6 @@ public class OrderDao {
         }
     }
 
-    // Select Example
-    public void fetchOrders() {
-        String sql = "SELECT * FROM customers";
-        // 'try-with-resources' -> automatically does clean up
-        try (Connection connection = DataBaseConnection.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)) {
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String email = resultSet.getString("phone");
-
-                System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
     public void getOrderById(int customer_id) {
         String sql = "SELECT * FROM customers WHERE customerId = ?";
         // 'try-with-resources' -> automatically does clean up
@@ -57,12 +41,40 @@ public class OrderDao {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String email = resultSet.getString("email");
-
-                System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Order> getOrders(Connection connection) {
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT orders.date, c.name, p.name AS product_name, s.name AS size, orders.quantity " +
+             "FROM orders " +
+             "JOIN customers c ON c.id = orders.customerId " +
+             "JOIN products p ON p.id = orders.productId " +
+             "JOIN sizes s ON s.id = orders.sizeId;";
+
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            // Populate the table model with data from ResultSet
+            while (rs.next()) {
+                String orderDate = rs.getString("date");
+                String customerName = rs.getString("name");
+                String flavour = rs.getString("product_name");
+                String size = rs.getString("size");
+                Integer quantity = rs.getInt("quantity");
+
+                // Add a row to the table model
+                orders.add(new Order(orderDate, customerName, flavour, size, quantity));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orders;
     }
 }

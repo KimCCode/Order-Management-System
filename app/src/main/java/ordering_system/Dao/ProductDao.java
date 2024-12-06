@@ -6,6 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductDao {
+    public Double getProductPrice(Connection connection, String productName) {
+        String sql = "SELECT price FROM sizes WHERE name = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, productName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble("price");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public void insertProduct(Connection connection, String name) {
         String sql = "INSERT INTO products (name) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

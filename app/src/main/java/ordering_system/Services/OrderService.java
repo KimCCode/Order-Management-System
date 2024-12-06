@@ -8,6 +8,7 @@ import ordering_system.Dao.OrderDao;
 import ordering_system.Dao.ProductDao;
 import ordering_system.Dao.SizeDao;
 import ordering_system.Database.DataBaseConnection;
+import ordering_system.Exceptions.OrderProcessingException;
 
 public class OrderService {
     private final OrderDao orderDao;
@@ -21,7 +22,8 @@ public class OrderService {
         this.productDao = productDao;
         this.sizeDao = sizeDao;
     }
-    public void placeOrder(String customerName, String phone, String deliveryDate, String size, String flavour, int qty) {
+
+    public void placeOrder(String customerName, String phone, String deliveryDate, String size, String flavour, int qty) throws OrderProcessingException {
         try (Connection connection = DataBaseConnection.getConnection()) {
             try {
                 connection.setAutoCommit(false);
@@ -39,10 +41,11 @@ public class OrderService {
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();
-                e.printStackTrace();
+                throw new OrderProcessingException();
             }
-        } catch (SQLException e) {
+        } catch (SQLException | OrderProcessingException e) {
             e.printStackTrace();
+            throw new OrderProcessingException();
         }
     }
 }

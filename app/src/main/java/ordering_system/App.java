@@ -17,6 +17,8 @@ import ordering_system.View.CardArea.Order.CustomerInfoPanel;
 import ordering_system.View.CardArea.Order.OrderInfoPanel;
 import ordering_system.View.CardArea.Order.OrderPanel;
 import ordering_system.View.CardArea.Order.OrderPanelBottom;
+import ordering_system.View.CardArea.Order.OrderTable;
+import ordering_system.View.CardArea.ViewOrder.ViewOrderPanel;
 
 public class App {
 
@@ -24,16 +26,18 @@ public class App {
         SwingUtilities.invokeLater(() -> {
             MainFrame form = new MainFrame();
             form.setVisible(true);
+            ViewOrderPanel viewOrderPanel = form.getViewOrderPanel();
             OrderPanel orderPanel = form.getOrderPanel();
             OrderPanelBottom orderPanelBottom = orderPanel.getOrderPanelBottom();
             OrderInfoPanel orderInfoPanel = orderPanel.getOrderInfoPanel();
             CustomerInfoPanel customerInfoPanel = orderPanel.getCustomerInfoPanel();
+            OrderTable orderTable = orderPanel.getOrderTable();
             OrderDao orderDao = new OrderDao();
             CustomerDao customerDao = new CustomerDao();
             ProductDao productDao = new ProductDao();
             SizeDao sizeDao = new SizeDao();
             OrderService orderService = new OrderService(orderDao, customerDao, productDao, sizeDao);
-            OrderController orderController = new OrderController(orderPanelBottom, orderInfoPanel, customerInfoPanel, orderService);
+            OrderController orderController = new OrderController(orderPanelBottom, orderInfoPanel, customerInfoPanel, orderTable, orderService, orderDao, productDao, viewOrderPanel);
         });
     }
 }

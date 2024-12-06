@@ -23,4 +23,20 @@ public class Order {
     public String getDeliveryDate() {
         return deliveryDate;
     }
+
+    public String getCustomerName() {
+        return name;
+    }
+
+    public String getFlavour() {
+        return flavour;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public int getQty() {
+        return quantity;
+    }
 }
