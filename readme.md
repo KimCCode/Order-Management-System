@@ -28,7 +28,7 @@ To set up the Order Management System locally:
    ``` bash
    ./gradlew bootRun
 ## Usage
-Once the application is running, access it via http://localhost:8080 in your web browser. From there, you can manage orders, update inventory, and utilize other features provided by the system.
+Once the application is running, from there you can manage orders, update inventory, and utilize other features provided by the system.
 
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your proposed changes. Ensure that your code adheres to the project's coding standards and includes appropriate tests.
