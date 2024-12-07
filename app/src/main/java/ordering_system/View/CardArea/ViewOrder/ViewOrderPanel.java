@@ -1,19 +1,12 @@
 package ordering_system.View.CardArea.ViewOrder;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,7 +18,6 @@ public class ViewOrderPanel extends JPanel {
     private JTextField endDate;
     private JButton searchButton;
     private OrderTable ordersTable;
-    private DefaultTableModel tableModel;
 
     public ViewOrderPanel() {
         // Set up the main panel with BorderLayout

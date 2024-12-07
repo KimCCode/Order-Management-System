@@ -5,7 +5,6 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 
 import ordering_system.View.CardArea.CardArea;
-import ordering_system.View.CardArea.Dashboard.DashboardPanel;
 import ordering_system.View.CardArea.Dashboard.MetricCardsPanel;
 import ordering_system.View.CardArea.Order.OrderPanel;
 import ordering_system.View.CardArea.ViewOrder.ViewOrderPanel;
