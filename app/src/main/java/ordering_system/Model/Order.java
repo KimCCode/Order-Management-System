@@ -7,13 +7,15 @@ public class Order {
     private String flavour;
     private String size;
     private int quantity;
+    private Double price;
 
-    public Order(String deliveryDate, String name, String flavour, String size, int quantity) {
+    public Order(String deliveryDate, String name, String flavour, String size, int quantity, Double price) {
         this.deliveryDate = deliveryDate;
         this.name = name;
         this.flavour = flavour;
         this.size = size;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public String getOrderId() {
@@ -38,5 +40,9 @@ public class Order {
 
     public int getQty() {
         return quantity;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 }

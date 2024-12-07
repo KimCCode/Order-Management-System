@@ -61,25 +61,17 @@ public class ViewOrderPanel extends JPanel {
         // Set up the frame
         add(mainPanel); // Add mainPanel to the frame
         setSize(800, 500);
-
-        // Optional: Action listener for search button
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String searchTerm = searchField.getText();
-                filterTable(searchTerm); // Call a method to filter the table based on search term
-            }
-        });
     }
-
-    // Method to filter table (for demonstration; you can implement this based on your requirements)
-    private void filterTable(String searchTerm) {
-        // Example: Clear the table and populate based on the search term
-        // For real implementation, you might re-query the database or filter the table model
-        System.out.println("Filter with search term: " + searchTerm);
+    
+    public void setSearchAction(ActionListener actionListener) {
+        searchButton.addActionListener(actionListener);
     }
 
     public void setOrdersTableModel(DefaultTableModel tableModel) {
         ordersTable.setOrdersTableModel(tableModel);
+    }
+
+    public String getSearchField() {
+        return searchField.getText();
     }
 }

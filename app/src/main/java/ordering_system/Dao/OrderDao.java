@@ -8,10 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
 
 import ordering_system.Database.DataBaseConnection;
 import ordering_system.Model.Order;
+import ordering_system.Util.OrderFactory;
 
 public class OrderDao {
     // Insert Example
@@ -48,33 +48,49 @@ public class OrderDao {
         }
     }
 
-    public List<Order> getOrders(Connection connection) {
+    public List<Order> getOrders() {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT orders.date, c.name, p.name AS product_name, s.name AS size, orders.quantity " +
+        String sql = "SELECT orders.date, c.name, p.name AS product_name, s.name AS size, orders.quantity, s.price " +
              "FROM orders " +
              "JOIN customers c ON c.id = orders.customerId " +
              "JOIN products p ON p.id = orders.productId " +
              "JOIN sizes s ON s.id = orders.sizeId;";
 
-        try (Statement stmt = connection.createStatement();
+        try (Connection connection = DataBaseConnection.getConnection();
+             Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             // Populate the table model with data from ResultSet
             while (rs.next()) {
-                String orderDate = rs.getString("date");
-                String customerName = rs.getString("name");
-                String flavour = rs.getString("product_name");
-                String size = rs.getString("size");
-                Integer quantity = rs.getInt("quantity");
-
-                // Add a row to the table model
-                orders.add(new Order(orderDate, customerName, flavour, size, quantity));
+                orders.add(OrderFactory.formatTableEntry(rs));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        return orders;
+    }
+
+    public List<Order> getOrdersByName(String name) {
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT orders.date, c.name, p.name AS product_name, s.name AS size, orders.quantity, s.price " +
+        "FROM orders " +
+        "JOIN customers c ON c.id = orders.customerId " +
+        "JOIN products p ON p.id = orders.productId " +
+        "JOIN sizes s ON s.id = orders.sizeId " +
+        "WHERE c.name = ?;";
+        try (Connection connection = DataBaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                orders.add(OrderFactory.formatTableEntry(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return orders;
     }
 

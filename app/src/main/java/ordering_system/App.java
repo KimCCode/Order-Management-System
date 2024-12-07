@@ -3,14 +3,10 @@
  */
 package ordering_system;
 
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 
 import ordering_system.Controller.OrderController;
+import ordering_system.Controller.ViewOrderController;
 import ordering_system.Controller.DashboardController;
 import ordering_system.Dao.CustomerDao;
 import ordering_system.Dao.OrderDao;
@@ -18,7 +14,6 @@ import ordering_system.Dao.ProductDao;
 import ordering_system.Dao.SizeDao;
 import ordering_system.Services.OrderService;
 import ordering_system.View.MainFrame;
-import ordering_system.View.CardArea.Dashboard.DashboardPanel;
 import ordering_system.View.CardArea.Dashboard.MetricCardsPanel;
 import ordering_system.View.CardArea.Order.CustomerInfoPanel;
 import ordering_system.View.CardArea.Order.OrderInfoPanel;
@@ -45,8 +40,9 @@ public class App {
             ProductDao productDao = new ProductDao();
             SizeDao sizeDao = new SizeDao();
             OrderService orderService = new OrderService(orderDao, customerDao, productDao, sizeDao);
-            OrderController orderController = new OrderController(orderPanelBottom, orderInfoPanel, customerInfoPanel, orderTable, orderService, orderDao, productDao, viewOrderPanel);
+            OrderController orderController = new OrderController(orderPanelBottom, orderInfoPanel, customerInfoPanel, orderTable, orderService, orderDao);
             DashboardController dashboardController = new DashboardController(metricCardsPanel, orderDao, orderService);
+            ViewOrderController viewOrderController = new ViewOrderController(viewOrderPanel, orderService);
         });
     }
 }

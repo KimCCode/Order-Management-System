@@ -6,9 +6,11 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class OrderTable extends JScrollPane {
     private JTable ordersTable;
+    private TableRowSorter<DefaultTableModel> sorter;
     public OrderTable() {
         ordersTable = new JTable();
         setViewportView(ordersTable);
@@ -18,8 +20,10 @@ public class OrderTable extends JScrollPane {
     }
 
     private void initialiseOrderTable(int width, int height) {
-        ordersTable = new JTable();
-        
+        DefaultTableModel model = new DefaultTableModel();
+        ordersTable = new JTable(model);
+        sorter = new TableRowSorter<>(model);
+        ordersTable.setRowSorter(sorter);
         setViewportView(ordersTable);
         setPreferredSize(new Dimension(width, height));
     }
@@ -35,5 +39,9 @@ public class OrderTable extends JScrollPane {
 
         // Adjust row height for larger fonts
         ordersTable.setRowHeight(25);
+    }
+
+    public TableRowSorter<DefaultTableModel> getSorter() {
+        return sorter;
     }
 }
